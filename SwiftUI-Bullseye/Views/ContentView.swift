@@ -9,11 +9,14 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @State private var alertIsVisible: Bool = false
-
-    @State private var sliderValue: Double = 50.0
+    @State private var alertIsVisible = false
+    
+    @State private var sliderValue = 50.0
+    
+    @State private var game = Game()
     
     var body: some View {
+        
         VStack(spacing: 20) {
             Text("PUT THE BULLSEYE AS CLOSE AS YOU CAN TO")
                 .bold()
@@ -22,10 +25,11 @@ struct ContentView: View {
                 .lineSpacing(4)
                 .font(.footnote)
             
-            Text("89")
+            Text(String(game.target))
                 .kerning(-1)
                 .font(.largeTitle)
                 .fontWeight(.black)
+            
             HStack(spacing: 25) {
                 Text("1")
                     .bold()
@@ -37,16 +41,16 @@ struct ContentView: View {
             } .padding(25)
             
             Button(action: {
-                self.alertIsVisible = true
+                alertIsVisible = true
             }, label: {
                 Text("HIT ME")
             })
             .alert(isPresented: $alertIsVisible, content: {
                 
-                let roundedValue: Int = Int(self.sliderValue.rounded())
+                let roundedValue = Int(sliderValue.rounded())
                 
                 return Alert(title: Text("Hello there!"),
-                             message: Text("The value of the slider is \(roundedValue)"),
+                             message: Text("The value of the slider is \(roundedValue) \n" + "You scored \(game.points(sliderValue: roundedValue)) points this round" ),
                              dismissButton: .default(Text("Close this alert")))
             })
         }
