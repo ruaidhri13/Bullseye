@@ -33,18 +33,23 @@ struct ContentView: View {
             HStack(spacing: 25) {
                 Text("1")
                     .bold()
-                
                 Slider(value: $sliderValue, in: 1...100)
-                
                 Text("100")
                     .bold()
-            } .padding(25)
+            } .padding()
             
             Button(action: {
                 alertIsVisible = true
             }, label: {
-                Text("HIT ME")
+                Text("Hit me".uppercased())
+                    .bold()
+                    .font(.title3)
             })
+            .padding(20)
+            .background(Color.blue)
+            .foregroundColor(.white)
+            .cornerRadius(21)
+            
             .alert(isPresented: $alertIsVisible, content: {
                 
                 let roundedValue = Int(sliderValue.rounded())
